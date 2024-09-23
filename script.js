@@ -7,7 +7,7 @@ const carouselButtons = document.querySelectorAll("[data-carousel-button]");
 const portfolioContainer = document.querySelector(".portfolio-container");
 
 
-const toggleClass = (element, className, add = true) => {
+const toggleClass = ({ element, className, add = true }) => {
     if (add) {
         element.className += ` ${className}`;
     } else {
@@ -18,7 +18,7 @@ const toggleClass = (element, className, add = true) => {
 };
 
 
-const updateCarouselButtonVisibility = (newIndex, visibleSlides) => {
+const updateCarouselButtonVisibility = ({ newIndex, visibleSlides }) => {
     carouselButtons.forEach((button) => {
         const isHidden =
             (button.dataset.carouselButton === "prev" && newIndex === 0) ||
@@ -29,7 +29,7 @@ const updateCarouselButtonVisibility = (newIndex, visibleSlides) => {
 };
 
 
-const filterPortfolioItems = (filterCategory) => {
+const filterPortfolioItems = ({ filterCategory }) => {
     const portfolioItems = document.querySelectorAll(".portfolio-items");
     let firstActive = true;
 
