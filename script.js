@@ -39,11 +39,11 @@ const filterPortfolioItems = ({ filterCategory }) => {
             filterCategory === "All" ||
             item.dataset.portfolioCategory === filterCategory;
         item.style.display = isVisible ? "block" : "none";
-        toggleClass(item, CAROUSEL_SHOW_CLASS, false);
+        toggleClass({ element: item, className: CAROUSEL_SHOW_CLASS, add: false });
 
 
         if (isVisible && firstActive) {
-            toggleClass(item, CAROUSEL_SHOW_CLASS);
+            toggleClass({ element: item, className: CAROUSEL_SHOW_CLASS });
             firstActive = false;
         }
     });
@@ -52,7 +52,7 @@ const filterPortfolioItems = ({ filterCategory }) => {
     const visibleItems = [...portfolioItems].filter(
         (item) => item.style.display !== "none"
     );
-    updateCarouselButtonVisibility(0, visibleItems);
+    updateCarouselButtonVisibility({ newIndex: 0, visibleSlides: visibleItems });
 };
 
 
@@ -62,9 +62,9 @@ filterButtons.forEach((button) => {
         const activeButton = document.querySelector(
             `.filter-items.${SELECTED_CLASS}`
         );
-        toggleClass(activeButton, SELECTED_CLASS, false);
-        toggleClass(button, SELECTED_CLASS);
-        filterPortfolioItems(button.textContent.trim());
+        toggleClass({ element: activeButton, className: SELECTED_CLASS, add: false });
+        toggleClass({ element: button, className: SELECTED_CLASS });
+        filterPortfolioItems({ filterCategory: button.textContent.trim() });
     });
 });
 
@@ -93,10 +93,9 @@ carouselButtons.forEach((button) => {
         });
 
 
-        toggleClass(activeSlide, CAROUSEL_SHOW_CLASS, false);
-        toggleClass(visibleSlides[newIndex], CAROUSEL_SHOW_CLASS);
+        toggleClass({ element: activeSlide, className: CAROUSEL_SHOW_CLASS, add: false });
+        toggleClass({ element: visibleSlides[newIndex], className: CAROUSEL_SHOW_CLASS });
 
-
-        updateCarouselButtonVisibility(newIndex, visibleSlides);
+        updateCarouselButtonVisibility({ newIndex: newIndex, visibleSlides: visibleSlides });
     });
 });
